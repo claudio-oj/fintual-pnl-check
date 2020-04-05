@@ -2,6 +2,9 @@ import pandas as pd
 from pandas.tseries.offsets import MonthEnd, YearEnd, BusinessDay
 import requests
 
+from flask import Flask
+app = Flask(__name__)
+
 
 res = requests.get('https://fintual.cl/api/real_assets/186/days') 
 
@@ -21,9 +24,16 @@ p_eom = df['price'].loc[df.index[0] + MonthEnd(-1)]
 p_eoy = df['price'].loc[df.index[0] + YearEnd(-1)]
 
 # Final Printout
-print('Risky Norris P%L {} DTD, {} MTD, {} YTD'.format(
+output = 'Risky Norris P&L {} DTD, {} MTD, {} YTD'.format(
     round(100*(p/p_eod-1),2),
     round(100*(p/p_eom-1),2),
     round(100*(p/p_eoy-1),2),
-    ))
+    )
 
+
+@app.route('/')
+def hello():
+    return output
+
+if __name__ == '__main__':
+    app.run()
