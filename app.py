@@ -26,8 +26,8 @@ p_eoy = df['price'].loc[df.index[0] + YearEnd(-1)]
 
 @app.route('/')
 def hello():
-    print(df.index[0].date())
-    return "Risky Norris {} P&L <br/> \
+    return "Risky Norris P&L {}  <br/> \
+            <br/>\
             {:10.2f}% DTD  <br/>  \
             {:10.2f}% MTD  <br/> \
             {:10.2f}% YTD  <br/>".format(df.index[0].date(), p/p_eod-1, p/p_eom, p/p_eoy)
